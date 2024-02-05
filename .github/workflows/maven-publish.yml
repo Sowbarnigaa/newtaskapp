@@ -24,7 +24,7 @@ jobs:
           --health-cmd "curl -f http://localhost:9200"
           --health-interval 20s
           --health-timeout 5s
-          --health-retiries 5 
+          --health-retries 5 
         ports:
           - "9200:9200"
           - "9300:9300"
