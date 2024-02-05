@@ -33,19 +33,20 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-        # server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        # settings-path: ${{ github.workspace }} # location for the settings.xml file
-
-    # - name: Cache the Maven packages to speed up build
-    #   uses: actions/cache@v1
-    #   with:
-    #     path: ~/.m2
-    #     key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-    #     restore-keys: ${{ runner.os }}-m2      
 
     - name: Build with Maven
       run: mvn -B package --file ./MyApp/pom.xml
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.11.0'
 
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build Angular app
+      run: npm run build --prod
 
   publish-job:
       runs-on: ubuntu-latest
