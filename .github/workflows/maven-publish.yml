@@ -42,13 +42,14 @@ jobs:
       with:
         node-version: '20.11.0'
 
-    - name: Install dependencies
+    - name: Changing working directory
       run: cd ./taskappfe
-           npm install
+
+    - name: Install dependencies
+      run:  npm install
 
     - name: Build Angular app
-      run: cd ./taskappfe
-           npm run build --prod
+      run: npm run build --prod
 
   publish-job:
       runs-on: ubuntu-latest
