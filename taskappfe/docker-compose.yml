@@ -1,0 +1,11 @@
+version: '3.6'
+services:
+  angular-service:
+    container_name: angular-interim-final
+    build: ./
+    volumes: 
+      - './:/usr/src/app'
+    ports:
+      - '4200:4200'
+    command: >
+     bash -c "npm start"

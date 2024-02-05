@@ -1,0 +1,119 @@
+<div class="container mt-4">
+  <b><h1 class=" text-center">My Tasks</h1></b>
+  <br>
+  <div class="container text-center mt-2">
+    <div class="row align-items-center">
+      <div class="col-md-3">
+        <button class="btn btn-light py-2 px-3 me-1" routerLink="/insert">Add a new task</button>
+        <button class="btn btn-light py-2 px-3 ms-1" (click)="toggleSort()">Sort by deadline</button>
+      </div>
+      
+      <div class="col-md-3">
+     
+      </div>
+     
+      <div class="col-md-4">
+        <input class="form-control " type="text" [(ngModel)]="searchTerm" placeholder="Enter search term" style="width: 100%;"/>
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-light " (click)="search()">Search</button>
+      </div>
+    </div>
+  </div>
+  
+  <br>
+  <b>
+  <div class="form-check">
+    <input  class="form-check-input custom-checkbox" checked type="checkbox" id="completedCheckbox" [(ngModel)]="showCompleted" (change)="filterByStatus()">
+    <label class="form-check-label" for="completedCheckbox">
+      Show Completed Tasks
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input custom-checkbox" type="checkbox" id="inProgressCheckbox" [(ngModel)]="showInProgress" (change)="filterByStatus()">
+    <label class="form-check-label" for="inProgressCheckbox">
+      Show In Progress Tasks
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input custom-checkbox" type="checkbox" id="todoCheckbox" [(ngModel)]="showTodo" (change)="filterByStatus()">
+    <label class="form-check-label" for="todoCheckbox">
+      Show ToDo Tasks
+    </label>
+  </div>
+</b>
+  
+
+  <div class="container" *ngIf="searchButtonPressed">
+    <div *ngIf="searchResults && searchResults.length > 0">
+      <br>
+      <b>
+      <h3 >Search Results</h3>
+    </b>
+      <div class="row mt-4">
+        <div class="col-4" *ngFor="let task of filteredResults">
+          <div class="card mb-4" style="width: 25rem;" style="background-color: rgb(255, 255, 255);">
+            <div class="card-header text-center" [ngClass]="{'bg-success': task.status === 'completed', 'bg-warning': task.status === 'in progress', 'bg-primary': task.status === 'todo'}">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title my-3"><b>{{task.name}}</b></h5>
+              <p class="card-text my-3"><strong>Description:</strong> {{task.description}}</p>
+              <p class="card-text my-3"><strong>Status:</strong> {{task.status}}</p>
+              <p class="card-text my-3"><strong>Deadline:</strong> {{task.deadline | date:"medium":"GMT"}}</p>
+              <div *ngIf="task.subtasks && task.subtasks.length > 0">
+                <p class="card-text my-3"><strong>Subtasks:</strong></p>
+                <ul class="list-group">
+                  <li class="list-group-item mb-2 " *ngFor="let subtask of task.subtasks">
+                    <strong>{{subtask.name}}</strong> - {{subtask.description}}<br> (Status: {{subtask.status}}) 
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-footer text-center" [ngClass]="{'bg-success': task.status === 'completed', 'bg-warning': task.status === 'in progress', 'bg-primary': task.status === 'todo'}">
+              <button class="btn btn-info mx-2 text-light" routerLink="/update/{{task.id}}">Update</button>
+              <button class="btn btn-danger mx-2 text-light" (click)="deleteTask(task.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="container" *ngIf="!searchButtonPressed">
+    <div class="row mt-4">
+      <div class="col-4" *ngFor="let task of filteredData">
+        <div class="card mb-4" style="width: 25rem;" style="background-color: rgb(255, 255, 255);">
+          <div class="card-header text-center" [ngClass]="{'bg-success': task.status === 'completed', 'bg-warning': task.status === 'in progress', 'bg-primary': task.status === 'todo'}">
+          </div>
+          <div class="card-body">
+            <h4 class="card-title my-3 text-center"><b>{{task.name}}</b></h4>
+            <p class="card-text my-3"><strong>Description:</strong> {{task.description}}</p>
+            <p class="card-text my-3"><strong>Status:</strong> {{task.status}}</p>
+            <p class="card-text my-3"><strong>Deadline:</strong> {{task.deadline | date:"medium":"GMT"}}</p>
+            <div *ngIf="task.subtasks && task.subtasks.length > 0">
+              <p class="card-text my-3"><strong>Subtasks:</strong></p>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let subtask of task.subtasks">
+                  <strong>{{subtask.name}}</strong> - {{subtask.description}} <br>(Status: {{subtask.status}})
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="card-footer text-center" [ngClass]="{'bg-success': task.status === 'completed', 'bg-warning': task.status === 'in progress', 'bg-primary': task.status === 'todo'}">
+            <button class="btn btn-info mx-2 text-light" routerLink="/update/{{task.id}}">Update</button>
+            <button class="btn btn-danger mx-2 text-light" (click)="deleteTask(task.id)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="data.length == 0">
+  <h5 class="text-danger text-center">---- No tasks found ----</h5>
+</div>
+<div *ngIf="filteredData.length == 0 or filteredResults==0">
+  <h5 class="text-danger text-center">---- No results found ----</h5>
+</div>

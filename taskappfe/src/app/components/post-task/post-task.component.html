@@ -1,0 +1,89 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Left Side Container -->
+    <div class="col-md-8">
+      <div class="container text-dark" style="background: rgb(174, 231, 245);
+background: radial-gradient(circle, rgb(147, 181, 246) 19%, rgb(47, 76, 151) 84%);">
+
+  <form [formGroup]="postTaskForm">
+    <b><h2 class="text-center text-light">Create new task</h2></b>
+
+    <div class="form-group">
+      <label for="name" class="text-light">Name</label>
+      <input type="text" id="name" name="name" class="form-control" required formControlName="name">
+    </div>
+
+    <div class="form-group">
+      <label for="description" class="text-light">Description</label>
+      <input type="text" id="description" name="description" class="form-control" required formControlName="description">
+    </div>
+
+    <div class="form-group">
+      <label for="status" class="text-light">Status</label>
+      <input type="text" id="status" name="status" class="form-control" required formControlName="status">
+    </div>
+
+    <div class="form-group">
+      <label for="deadline" class="text-light">Deadline</label>
+      <input type="datetime-local" id="deadline" name="deadline" class="form-control" required formControlName="deadline">
+    </div>
+
+
+    <div formArrayName="subtasks">
+      <div *ngFor="let subtask of postTaskForm.get('subtasks').controls; let i = index" class="subtask-container" [formGroupName]="i">
+       <h4 class="text-light">Subtask {{i+1}}:</h4> 
+        <div class="form-group">
+          <label for="subtaskName{{ i }}" class="text-light">Subtask Name</label>
+          <input type="text" id="subtaskName{{ i }}" name="subtaskName{{ i }}" formControlName="name" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="subtaskDescription{{ i }}" class="text-light">Subtask Description</label>
+          <input type="text" id="subtaskDescription{{ i }}" name="subtaskDescription{{ i }}" formControlName="description" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="subtaskStatus{{ i }}" class="text-light">Subtask Status</label>
+          <input type="text" id="subtaskStatus{{ i }}" name="subtaskStatus{{ i }}" formControlName="status" class="form-control">
+        </div>
+
+        <!-- <div class="form-group">
+          <label for="subtaskDeadline{{ i }}" class="text-light">Subtask Deadline</label>
+          <input type="datetime-local" id="subtaskDeadline{{ i }}" name="subtaskDeadline{{ i }}" formControlName="deadline" class="form-control">
+        </div> -->
+
+        <!-- Button to remove subtask -->
+        <button type="button" class="btn btn-danger btn-sm" (click)="removeSubtask(i)">Remove Subtask</button>
+      </div>
+    </div>
+    <br>
+    <!-- Button to add a new subtask -->
+    <button type="button" class="btn btn-success btn-sm" (click)="addSubtask()">Add Subtask</button>
+     <br>
+    <br>
+    <div class="text-center">
+      <button type="submit" class=" btn btn-success py-2 px-3" (click)="postTask()">Add Task </button>
+    </div>
+   
+    
+  </form>
+</div>
+</div>
+
+<div class="col-md-3 my-5 mt-5"> 
+ 
+  <br>
+  <br>
+  <br>
+  <br>
+<a href="https://www.bing.com/images/search?view=detailV2&ccid=dJ1VxRWr&id=AC9BDD79F2B8121FE87557C6F1C3D4AF5595B984&thid=OIP.dJ1VxRWrzzITx49hGrOriQHaFj&mediaurl=https%3a%2f%2fcdn.kibrispdr.org%2fdata%2f1759%2fchecklist-animated-gif-3.gif&exph=1200&expw=1600&q=tasks+animation+gif&simid=607989875951744262&FORM=IRPRST&ck=2139803B782970AED8E652525EDC620E&selectedIndex=11&itb=0">
+  <img src="https://cdn.dribbble.com/users/4241563/screenshots/11874468/media/7796309c77cf752615a3f9062e6a3b3d.gif"  alt="Tasks Animation GIF" class="img-fluid rounded">
+</a>
+</div>
+</div>
+</div>
+
+
+
+
+ 

@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <b><h1 class=" text-center">My Tasks</h1></b><br>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th style="width: 22%;">Name</th>
+          <th style="width: 25%;">Description</th>
+          <th style="width: 8%;">Status</th>
+          <th style="width: 15%;">Deadline</th>
+          <th style="width: 30%;">Subtasks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of data" [ngClass]="{
+          'table-danger': task.status === 'todo',
+          'table-primary': task.status === 'in progress',
+          'table-success': task.status === 'completed'
+        }">
+          <ng-container *ngIf="task.name && task.name.trim() !== ''">
+            <td>{{ task.name }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.status }}</td>
+            <td class="text-danger">{{ task.deadline | date:"medium":"GMT"}}</td>
+            <td>
+              <ul class="list-unstyled">
+                <li *ngFor="let subtask of task.subtasks">
+                  {{ subtask.name }} - {{ subtask.description }} <br> Status:{{ subtask.status }}
+                </li>
+              </ul>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <div clas="text-end"> <button class="btn btn-light py-2 px-3 me-1 text-end" (click)="printAsPDF()">Print as PDF</button></div>
+   
+  </div>
+</div>

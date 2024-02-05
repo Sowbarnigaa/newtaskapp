@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en" data-critters-container><head>
+  <meta charset="utf-8">
+  <title>Tasks App</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/906/906334.png">
+
+  <!-- Include Bootstrap from CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background: rgb(162, 242, 248);
+      background: radial-gradient(circle, rgb(95, 193, 254) 42%, rgb(245, 121, 247) 84%);
+    }
+  </style>
+<style>body{background:radial-gradient(circle,rgb(174,231,245) 19%,rgb(47,113,151) 84%)}*{font-family:Georgia}
+</style><link rel="stylesheet" href="styles-5FEEGOBM.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-5FEEGOBM.css"></noscript><style ng-app-id="ng">table[_ngcontent-ng-c334152334]{width:50%;border-collapse:collapse;margin:20px auto}th[_ngcontent-ng-c334152334], td[_ngcontent-ng-c334152334]{border:1px solid #ddd;padding:8px;text-align:left}th[_ngcontent-ng-c334152334]{background-color:#f2f2f2}.wrap-flex[_ngcontent-ng-c334152334]{display:flex;align-items:stretch}.button-cell[_ngcontent-ng-c334152334]{display:flex;justify-content:space-between}.button-cell[_ngcontent-ng-c334152334]   button[_ngcontent-ng-c334152334]{padding:8px;margin:2px;background-color:#0f0442;color:#170a3c;border:none;border-radius:4px;cursor:pointer}.button-cell[_ngcontent-ng-c334152334]   button[_ngcontent-ng-c334152334]:hover{background-color:#45a049}.search-container[_ngcontent-ng-c334152334]{max-width:400px;margin:20px auto auto;padding:20px;border:1px solid #ddd;border-radius:5px}input[_ngcontent-ng-c334152334]{width:30%;padding:10px;margin-right:20px}button[_ngcontent-ng-c334152334]{padding:10px;background-color:#241469;color:#fff;border:none;border-radius:5px;cursor:pointer}ul[_ngcontent-ng-c334152334]{list-style-type:none;padding:0}li[_ngcontent-ng-c334152334]{margin:5px 0}.custom-checkbox[_ngcontent-ng-c334152334]{width:1rem;height:1rem}</style></head>
+<body><!--nghm-->
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <!-- Logo -->
+      <a class="navbar-brand" href="#">
+        <img src="https://cdn-icons-png.flaticon.com/512/906/906334.png" alt="Tasks App Logo" width="30" height="30" class="d-inline-block align-top">
+        <b class="mx-3">Tasks App</b>
+      </a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/view">View Tasks</a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <app-root _nghost-ng-c1933515739 ng-version="17.0.9" ngh="1" ng-server-context="ssg"><router-outlet _ngcontent-ng-c1933515739></router-outlet><app-get-all-tasks _nghost-ng-c334152334 ngh="0"><div _ngcontent-ng-c334152334 class="container mt-4"><b _ngcontent-ng-c334152334><h1 _ngcontent-ng-c334152334 class="text-center">My Tasks</h1></b><br _ngcontent-ng-c334152334><div _ngcontent-ng-c334152334 class="container text-center mt-2"><div _ngcontent-ng-c334152334 class="row align-items-center"><div _ngcontent-ng-c334152334 class="col-md-3"><button _ngcontent-ng-c334152334 routerlink="/insert" class="btn btn-light py-2 px-3 me-1" tabindex="0">Add a new task</button><button _ngcontent-ng-c334152334 class="btn btn-light py-2 px-3 ms-1">Sort by deadline</button></div><div _ngcontent-ng-c334152334 class="col-md-3"></div><div _ngcontent-ng-c334152334 class="col-md-4"><input _ngcontent-ng-c334152334 type="text" placeholder="Enter search term" class="form-control ng-untouched ng-pristine ng-valid" style="width: 100%;" value></div><div _ngcontent-ng-c334152334 class="col-md-1"><button _ngcontent-ng-c334152334 class="btn btn-light">Search</button></div></div></div><br _ngcontent-ng-c334152334><b _ngcontent-ng-c334152334><div _ngcontent-ng-c334152334 class="form-check"><input _ngcontent-ng-c334152334 type="checkbox" id="completedCheckbox" class="form-check-input custom-checkbox ng-untouched ng-pristine ng-valid" checked><label _ngcontent-ng-c334152334 for="completedCheckbox" class="form-check-label"> Show Completed Tasks </label></div><div _ngcontent-ng-c334152334 class="form-check"><input _ngcontent-ng-c334152334 type="checkbox" id="inProgressCheckbox" class="form-check-input custom-checkbox ng-untouched ng-pristine ng-valid" checked><label _ngcontent-ng-c334152334 for="inProgressCheckbox" class="form-check-label"> Show In Progress Tasks </label></div><div _ngcontent-ng-c334152334 class="form-check"><input _ngcontent-ng-c334152334 type="checkbox" id="todoCheckbox" class="form-check-input custom-checkbox ng-untouched ng-pristine ng-valid" checked><label _ngcontent-ng-c334152334 for="todoCheckbox" class="form-check-label"> Show ToDo Tasks </label></div></b><!----><br _ngcontent-ng-c334152334><br _ngcontent-ng-c334152334><div _ngcontent-ng-c334152334 class="container"><div _ngcontent-ng-c334152334 class="row mt-4"><div _ngcontent-ng-c334152334 class="col-4"><div _ngcontent-ng-c334152334 class="card mb-4" style="background-color: rgb(255, 255, 255);"><div _ngcontent-ng-c334152334 class="card-header text-center bg-primary"></div><div _ngcontent-ng-c334152334 class="card-body"><h4 _ngcontent-ng-c334152334 class="card-title my-3 text-center"><b _ngcontent-ng-c334152334>New Updated Task Name</b></h4><p _ngcontent-ng-c334152334 class="card-text my-3"><strong _ngcontent-ng-c334152334>Description:</strong> Updated Task Description</p><p _ngcontent-ng-c334152334 class="card-text my-3"><strong _ngcontent-ng-c334152334>Status:</strong> todo</p><p _ngcontent-ng-c334152334 class="card-text my-3"><strong _ngcontent-ng-c334152334>Deadline:</strong> Dec 31, 2024, 12:00:00 AM</p><div _ngcontent-ng-c334152334><p _ngcontent-ng-c334152334 class="card-text my-3"><strong _ngcontent-ng-c334152334>Subtasks:</strong></p><ul _ngcontent-ng-c334152334 class="list-group"><li _ngcontent-ng-c334152334 class="list-group-item"><strong _ngcontent-ng-c334152334>Subtask 1</strong> - Description for Subtask 1 <br _ngcontent-ng-c334152334>(Status: Completed) </li><li _ngcontent-ng-c334152334 class="list-group-item"><strong _ngcontent-ng-c334152334>Subtask 2</strong> - Description for Subtask 2 <br _ngcontent-ng-c334152334>(Status: Not Started) </li><!----></ul></div><!----></div><div _ngcontent-ng-c334152334 class="card-footer text-center bg-primary"><button _ngcontent-ng-c334152334 class="btn btn-info mx-2 text-light" tabindex="0">Update</button><button _ngcontent-ng-c334152334 class="btn btn-danger mx-2 text-light">Delete</button></div></div></div><!----></div></div><!----></div><!----><!----></app-get-all-tasks><!----></app-root>
+
+  <!-- Include Bootstrap JS and Popper.js from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="polyfills-RX4V3J3S.js" type="module"></script><script src="main-OE4JXF4R.js" type="module"></script>
+
+<script id="ng-state" type="application/json">{"3922391965":{"b":{"content":[{"id":"poPKVo0BP6LdBAVYse8X","name":"New Updated Task Name","description":"Updated Task Description","status":"todo","deadline":"2024-12-31T00:00:00.000+00:00","subtasks":[{"name":"Subtask 1","description":"Description for Subtask 1","status":"Completed"},{"name":"Subtask 2","description":"Description for Subtask 2","status":"Not Started"}]}],"pageable":{"pageNumber":0,"pageSize":1,"sort":{"empty":true,"sorted":false,"unsorted":true},"offset":0,"unpaged":false,"paged":true},"last":true,"totalPages":1,"totalElements":1,"size":1,"number":0,"sort":{"empty":true,"sorted":false,"unsorted":true},"numberOfElements":1,"first":true,"empty":false},"h":{},"s":200,"st":"OK","u":"http://localhost:8083/api/findAll","rt":"json"},"__nghData__":[{"t":{"32":"t0","35":"t1","36":"t5","37":"t6"},"c":{"32":[],"35":[{"i":"t1","r":1,"t":{"2":"t2"},"c":{"2":[{"i":"t2","r":1,"t":{"20":"t3"},"c":{"20":[{"i":"t3","r":1,"t":{"5":"t4"},"c":{"5":[{"i":"t4","r":1,"x":2}]}}]}}]}}],"36":[],"37":[]}},{"c":{"0":[{"i":"c334152334","r":1}]}}]}</script></body></html>
