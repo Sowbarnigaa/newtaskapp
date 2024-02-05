@@ -14,7 +14,7 @@ FROM node:21-alpine3.18 as angular
 WORKDIR /app
 
 COPY . .
-RUN npm install
+RUN npm ci
 RUN npm run build --prod
 
 CMD ["npm", "start"]
