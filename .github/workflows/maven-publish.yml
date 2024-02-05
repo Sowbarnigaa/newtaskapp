@@ -45,7 +45,7 @@ jobs:
     - name: Changing working directory
       run: | 
         cd ./taskappfe;
-        npm install -g @angular/cli;
+        npm ci;
         npm run build --prod;
 
   publish-job:
