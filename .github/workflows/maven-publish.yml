@@ -57,7 +57,7 @@ jobs:
 
       - name: Create Docker Image
         run: |
-          docker build -t sowbarnigaa/backrepo:latest -f ./path-to-Dockerfile .
+          docker build -t sowbarnigaa/backrepo:latest -f ./Dockerfile .
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker push sowbarnigaa/backrepo:latest
 
