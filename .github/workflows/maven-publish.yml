@@ -43,10 +43,12 @@ jobs:
         node-version: '20.11.0'
 
     - name: Install dependencies
-      run: npm install
+      run: cd ./taskappfe
+           npm install
 
     - name: Build Angular app
-      run: npm run build --prod
+      run: cd ./taskappfe
+           npm run build --prod
 
   publish-job:
       runs-on: ubuntu-latest
