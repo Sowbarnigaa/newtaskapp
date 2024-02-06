@@ -83,12 +83,12 @@ jobs:
               push: true
               tags: sowbarnigaa/backrepo:latest
 
-        # - name: Build and push Frontend Docker image
-        #   uses: docker/build-push-action@v4
-        #   with:
-        #       context: .
-        #       file: ./taskappfe/Dockerfile
-        #       push: true
-        #       tags: sowbarnigaa/frontrepo:latest
+        - name: Build and push Frontend Docker image
+          uses: docker/build-push-action@v4
+          with:
+              context: .
+              file: ./taskappfe/Dockerfile
+              push: true
+              tags: sowbarnigaa/frontrepo:latest
               
   
