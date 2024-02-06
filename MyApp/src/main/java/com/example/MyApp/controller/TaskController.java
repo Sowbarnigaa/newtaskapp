@@ -32,6 +32,7 @@ public class TaskController {
     @Autowired
     private final ElasticSearchService elasticSearchService;
 
+
 //    @GetMapping("/search")
 //    public ResponseEntity<?> searchWithPagination(
 //            @RequestParam(defaultValue = "0") int page,
@@ -48,6 +49,13 @@ public class TaskController {
 //            return ResponseEntity.ok(response.getHits().getHits());
 //
 //    }
+
+    @GetMapping("/hello")
+    public String disp(){
+        return "Hiiiiii";
+    }
+
+
 
     @GetMapping("/findAll")
     public ResponseEntity<Iterable<Task>> findAll(){
