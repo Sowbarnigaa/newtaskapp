@@ -37,6 +37,7 @@ jobs:
     - name: Build with Maven
       run: |
        mvn -B package --file ./MyApp/pom.xml
+       cd MyApp
        mvn --batch-mode --update-snapshots verify
       
     # - name: Set up Node.js
