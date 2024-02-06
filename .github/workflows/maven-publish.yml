@@ -40,7 +40,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '21'
+        node-version: '20.11.0'
 
     - name: Changing working directory
       run: | 
@@ -59,7 +59,7 @@ jobs:
         - name: Set up Node.js
           uses: actions/setup-node@v4
           with:
-            node-version: '21'
+            node-version: '20.11.0'
 
         - run: mvn -B package --file ./MyApp/pom.xml -DskipTests
         - run: mkdir staging && cp ./MyApp/target/myapptask.jar staging
