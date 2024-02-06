@@ -14,6 +14,10 @@ FROM node:21-alpine3.18 as angular
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
+
+ENV NODE_ENV=prod
+
+
 COPY . .
 
 RUN npm run build --prod
