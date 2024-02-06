@@ -110,7 +110,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ./taskappfe
           file: ./taskappfe/Dockerfile
           push: true
           tags: sowbarnigaa/frontrepo:1
