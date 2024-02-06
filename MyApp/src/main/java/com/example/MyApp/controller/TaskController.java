@@ -7,6 +7,7 @@ import com.example.MyApp.service.ElasticSearchService;
 import com.example.MyApp.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import org.elasticsearch.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -30,13 +32,35 @@ public class TaskController {
     @Autowired
     private final ElasticSearchService elasticSearchService;
 
-
+//    @GetMapping("/search")
+//    public ResponseEntity<?> searchWithPagination(
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "1") int size) {
+//
+//            // Calculate the starting index for pagination
+//            int from = page * size;
+//
+//            // Execute the search query with pagination
+//            org.elasticsearch.action.search.SearchResponse response = taskService.executeSearchAndPaginate(from, size);
+//
+//            // Process the search response and return it
+//            // For simplicity, let's just return the search hits
+//            return ResponseEntity.ok(response.getHits().getHits());
+//
+//    }
 
     @GetMapping("/findAll")
-    public Iterable<Task> findAll(){
-        return taskService.getTasks();
+    public ResponseEntity<Iterable<Task>> findAll(){
+        Iterable<Task> tasks = taskService.getTasks();
+        return ResponseEntity.ok().body(tasks);
     }
-
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception ex) {
+        // Log the exception
+        ex.printStackTrace();
+        // Return an appropriate response to the client
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Task doesn't exist");
+    }
     @GetMapping("/update/{id}")
     public ResponseEntity<Task> find(@PathVariable String id){
         Task task=taskService.getTaskById(id);
@@ -53,30 +77,30 @@ public class TaskController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Task> updateProduct(@PathVariable String id,@RequestBody  Task task){
-        Task task_exist=taskService.getTaskById(id);
-        if(task_exist==null)
-        {
-            return ResponseEntity.notFound().build();
-        }
-        System.out.println("****************");
-        System.out.println("Data type of id field: " + task_exist.getId().getClass().getName());
-        System.out.println("****************");
+    public ResponseEntity<Task> updateProduct(@PathVariable String id, @RequestBody Task task) {
+        Task task_exist = taskService.getTaskById(id);
+
+
+        // Update the existing task with the new task details
         task_exist.setName(task.getName());
         task_exist.setDescription(task.getDescription());
         task_exist.setStatus(task.getStatus());
         task_exist.setDeadline(task.getDeadline());
         task_exist.setSubtasks(task.getSubtasks());
-        Task task_update=taskService.updateTask(task_exist);
-        return ResponseEntity.ok(task_update);
+
+        // Update the task in the service
+        Task updatedTask = taskService.updateTask(task_exist);
+
+        // Return the updated task with 200 OK status
+        return ResponseEntity.ok(updatedTask);
     }
 
     @DeleteMapping("/update/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id){
-        Task task_exist=taskService.getTaskById(id);
-        if(task_exist==null)
-        {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        Task task_exist = taskService.getTaskById(id);
+        if (task_exist == null) {
+            // Return a custom message with 404 status code
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No task found with ID: " + id);
         }
         taskService.deleteTask(id);
         return ResponseEntity.ok().build();

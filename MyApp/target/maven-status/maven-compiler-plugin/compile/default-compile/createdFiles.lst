@@ -1,11 +1,14 @@
+com\example\MyApp\controller\Exceptions.class
+com\example\MyApp\service\ElasticSearchService.class
+com\example\MyApp\util\ElasticSearchUtil.class
+com\example\MyApp\MyAppApplication.class
+com\example\MyApp\controller\TaskExistsException.class
 com\example\MyApp\ElasticsearchConfig.class
 com\example\MyApp\entity\Subtask.class
 com\example\MyApp\entity\Task.class
 com\example\MyApp\service\TaskService.class
 com\example\MyApp\controller\RecordsNotFoundException.class
 com\example\MyApp\entity\Entity.class
-com\example\MyApp\service\ElasticSearchService.class
-com\example\MyApp\util\ElasticSearchUtil.class
+com\example\MyApp\controller\TaskNotFoundException.class
 com\example\MyApp\repo\TaskRepo.class
-com\example\MyApp\MyAppApplication.class
 com\example\MyApp\controller\TaskController.class

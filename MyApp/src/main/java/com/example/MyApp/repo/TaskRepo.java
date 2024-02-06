@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 
 public interface TaskRepo extends ElasticsearchRepository<Task,String> {
+
+    Task getTaskById(String id_t);
 }

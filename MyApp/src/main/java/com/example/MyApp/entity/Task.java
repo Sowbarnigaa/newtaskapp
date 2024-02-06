@@ -15,6 +15,7 @@ import java.util.List;
 @Document(indexName = "tasks")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Task{
+   
     @Id
     @Field(type = FieldType.Text)
     private String id;
@@ -28,4 +29,14 @@ public class Task{
     private Date deadline;
     @Field(type = FieldType.Nested)
     private List<Subtask> subtasks;
+
+     public Task(String name, String description, String status, Date deadline,List<Subtask> subtasks ) {
+         super();
+         this.name=name;
+         this.description=description;
+         this.status=status;
+         this.deadline=deadline;
+         this.subtasks=subtasks;
+     }
+
 }
