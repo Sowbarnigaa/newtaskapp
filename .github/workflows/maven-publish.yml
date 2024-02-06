@@ -27,68 +27,66 @@ jobs:
           - "9300:9300"
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up JDK 21
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
 
     - name: Build with Maven
-      run: mvn -B package --file ./MyApp/pom.xml
+      run: |
+       mvn -B package --file ./MyApp/pom.xml
+       mvn --batch-mode --update-snapshots verify
       
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
+    # - name: Set up Node.js
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: '20.11.0'
+
+    # - name: Changing working directory
+    #   run: | 
+    #     cd ./taskappfe;
+    #     npm ci;
+    #     npm run build --prod;
+
+ 
+
+
+        # - run: mvn -B package --file ./MyApp/pom.xml -DskipTests
+        # - run: mkdir staging && cp ./MyApp/target/myapptask.jar staging
+        # - uses: actions/upload-artifact@v1
+        #   with:
+        #     name: Package
+        #     path: staging
+        
+    - name: build spring boot image
+      run: docker build -t spring-app .
+
+    - name: display spring-app image
+      run: docker images
+      
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
       with:
-        node-version: '20.11.0'
-
-    - name: Changing working directory
-      run: | 
-        cd ./taskappfe;
-        npm ci;
-        npm run build --prod;
-
-  publish-job:
-      runs-on: ubuntu-latest
-      needs: [build]
-      steps:
-        - uses: actions/checkout@v4
-        - uses: actions/setup-java@v3
-          with:
-            java-version: 21
-        - name: Set up Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: '20.11.0'
-
-        - run: mvn -B package --file ./MyApp/pom.xml -DskipTests
-        - run: mkdir staging && cp ./MyApp/target/myapptask.jar staging
-        - uses: actions/upload-artifact@v1
-          with:
-            name: Package
-            path: staging
-
-        - name: Login to Docker Hub
-          uses: docker/login-action@v3
-          with:
               registry: docker.io
               username:  ${{ secrets.DOCKERHUB_USERNAME }}
               password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-        - name: Build and push Backend Docker image
-          uses: docker/build-push-action@v4
-          with:
+    - name: Build and push Backend Docker image
+      uses: docker/build-push-action@v4
+      with:
               context: .
               file: ./Dockerfile
               push: true
-              tags: sowbarnigaa/backrepo:latest
+              tags: sowbarnigaa/backrepo:1
 
-        - name: Build and push Frontend Docker image
-          uses: docker/build-push-action@v4
-          with:
-              context: .
-              file: ./taskappfe/Dockerfile
-              push: true
-              tags: sowbarnigaa/frontrepo:latest
+    # - name: Build and push Frontend Docker image
+    #   uses: docker/build-push-action@v4
+    #   with:
+    #           context: .
+    #           file: ./taskappfe/Dockerfile
+    #           push: true
+    #           tags: sowbarnigaa/frontrepo:latest
               
   
