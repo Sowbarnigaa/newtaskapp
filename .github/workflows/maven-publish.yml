@@ -3,20 +3,35 @@ name: Maven Package
 on:
   push:
     branches: [ master ]
-    paths:
-      - 'MyApp/**'
-      - 'taskappfe/**'
   pull_request:
     branches: [ master ]
-    paths:
-      - 'MyApp/**'
-      - 'taskappfe/**'
-
+   
 jobs:
-  build:
+   paths-filter:
+    runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.filter.outputs.workflows }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          workflows:
+            - 'MyApp/**'
+    # run only if 'workflows' files were changed
+    - name: workflow tests
+      if: steps.filter.outputs.workflows == 'true'
+      run: echo "MyApp file editted"
+
+    # run only if not 'workflows' files were changed
+    - name: not workflow tests
+      if: steps.filter.outputs.workflows != 'true'
+      run: echo "taskappfe file editted"
+   build:
     name: backend
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.pull_request.changed_files, 'MyApp/') }}
+    if: needs.paths-filter.outputs.output1 == 'true'
     services:
       elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:8.8.1
@@ -74,10 +89,10 @@ jobs:
               push: true
               tags: sowbarnigaa/backrepo:1
 
-  build_angular:
+   build_angular:
     name: frontend
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.pull_request.changed_files, 'taskappfe/') }}
+    if: needs.paths-filter.outputs.output1 != 'true'
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
