@@ -7,77 +7,66 @@ on:
     branches: [ master ]
 
 jobs:
-  # build:
-  #   name: backend
-  #   runs-on: ubuntu-latest
+  build:
+    name: backend
+    runs-on: ubuntu-latest
 
-  #   services:
-  #     elasticsearch:
-  #       image: docker.elastic.co/elasticsearch/elasticsearch:8.8.1
-  #       env:
-  #         discovery.type: single-node
-  #         xpack.security.enabled: false
-  #       options: >-
-  #         --health-cmd "curl -f http://localhost:9200"
-  #         --health-interval 20s
-  #         --health-timeout 5s
-  #         --health-retries 5 
-  #       ports:
-  #         - "9200:9200"
-  #         - "9300:9300"
+    services:
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.8.1
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: false
+        options: >-
+          --health-cmd "curl -f http://localhost:9200"
+          --health-interval 20s
+          --health-timeout 5s
+          --health-retries 5 
+        ports:
+          - "9200:9200"
+          - "9300:9300"
     
-  #   steps:
-  #   - uses: actions/checkout@v4
-  #   - name: Set up JDK 21
-  #     uses: actions/setup-java@v4
-  #     with:
-  #       java-version: '21'
-  #       distribution: 'temurin'
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
 
-  #   - name: Build with Maven
-  #     run: |
-  #      mvn -B package --file ./MyApp/pom.xml
-  #      cd MyApp
-  #      mvn --batch-mode --update-snapshots verify
+    - name: Build with Maven
+      run: |
+       mvn -B package --file ./MyApp/pom.xml
+       cd MyApp
+       mvn --batch-mode --update-snapshots verify
       
-
-
-  #   # - name: Changing working directory
-  #   #   run: | 
-  #   #     cd ./taskappfe;
-  #   #     npm ci;
-  #   #     npm run build --prod;
-
- 
-
-
-  #       # - run: mvn -B package --file ./MyApp/pom.xml -DskipTests
-  #       # - run: mkdir staging && cp ./MyApp/target/myapptask.jar staging
-  #       # - uses: actions/upload-artifact@v1
-  #       #   with:
-  #       #     name: Package
-  #       #     path: staging
+        # - run: mvn -B package --file ./MyApp/pom.xml -DskipTests
+        # - run: mkdir staging && cp ./MyApp/target/myapptask.jar staging
+        # - uses: actions/upload-artifact@v1
+        #   with:
+        #     name: Package
+        #     path: staging
         
-  #   - name: build spring boot image
-  #     run: docker build -t spring-app .
+    - name: build spring boot image
+      run: docker build -t spring-app .
 
-  #   - name: display spring-app image
-  #     run: docker images
+    - name: display spring-app image
+      run: docker images
       
-  #   - name: Login to Docker Hub
-  #     uses: docker/login-action@v3
-  #     with:
-  #             registry: docker.io
-  #             username:  ${{ secrets.DOCKERHUB_USERNAME }}
-  #             password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+              registry: docker.io
+              username:  ${{ secrets.DOCKERHUB_USERNAME }}
+              password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-  #   - name: Build and push Backend Docker image
-  #     uses: docker/build-push-action@v4
-  #     with:
-  #             context: .
-  #             file: ./Dockerfile
-  #             push: true
-  #             tags: sowbarnigaa/backrepo:1
+    - name: Build and push Backend Docker image
+      uses: docker/build-push-action@v4
+      with:
+              context: .
+              file: ./Dockerfile
+              push: true
+              tags: sowbarnigaa/backrepo:1
 
   build_angular:
     name: frontend
