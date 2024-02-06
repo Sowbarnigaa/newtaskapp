@@ -30,6 +30,10 @@ public class TaskController {
     @Autowired
     private final ElasticSearchService elasticSearchService;
 
+    @GetMapping("/hello")
+    public String disp(){
+        return "Hiiiiii";
+    }
 
 
     @GetMapping("/findAll")
