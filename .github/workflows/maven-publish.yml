@@ -3,14 +3,20 @@ name: Maven Package
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'MyApp/**'
+      - 'taskappfe/**'
   pull_request:
     branches: [ master ]
+    paths:
+      - 'MyApp/**'
+      - 'taskappfe/**'
 
 jobs:
   build:
     name: backend
     runs-on: ubuntu-latest
-
+    if: "github.event_name == 'push' && contains(github.event.head_commit.modified, 'MyApp/')"
     services:
       elasticsearch:
         image: docker.elastic.co/elasticsearch/elasticsearch:8.8.1
@@ -71,7 +77,7 @@ jobs:
   build_angular:
     name: frontend
     runs-on: ubuntu-latest
-
+    if: "github.event_name == 'push' && contains(github.event.head_commit.modified, 'taskappfe/')"
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
