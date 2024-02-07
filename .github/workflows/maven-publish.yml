@@ -32,12 +32,10 @@ jobs:
           
   checkout-code:
       runs-on: ubuntu-latest
-      name: set up code
       steps:
         - uses: actions/checkout@v4
             
   integration-test:
-        name: elasticsearch
         needs: [checkout-code]
         runs-on: ubuntu-latest
         # if: needs.paths-filter.outputs.output1 == 'true'
@@ -61,7 +59,35 @@ jobs:
              with:
                 java-version: '21'
                 distribution: 'temurin'
-          
+           - name: Run unit tests
+             run: mvn test --file ./MyApp/pom.xml
+           - name: Build with Maven
+             run: |
+               mvn -B package --file ./MyApp/pom.xml
+               cd MyApp
+               mvn --batch-mode --update-snapshots verify
+               
+           - name: build spring boot image
+             run: docker build -t spring-app .
+        
+           - name: display spring-app image
+             run: docker images
+              
+           - name: Login to Docker Hub
+             uses: docker/login-action@v3
+             with:
+                      registry: docker.io
+                      username:  ${{ secrets.DOCKERHUB_USERNAME }}
+                      password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+           - name: Build and push Backend Docker image
+             uses: docker/build-push-action@v4
+             with:
+                      context: .
+                      file: ./Dockerfile
+                      push: true
+                      tags: sowbarnigaa/backrepo:1
+              
   unit-test:
       runs-on: ubuntu-latest
       needs: [integration-test]
