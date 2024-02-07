@@ -66,6 +66,7 @@ jobs:
               - "9300:9300"
         steps: 
            - name: Elastic search Configured
+           - run: echo "Elastic search Configured"
           
   unit-test:
       runs-on: ubuntu-latest
