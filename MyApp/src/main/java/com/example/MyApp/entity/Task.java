@@ -30,8 +30,9 @@ public class Task{
     @Field(type = FieldType.Nested)
     private List<Subtask> subtasks;
 
-     public Task(String name, String description, String status, Date deadline,List<Subtask> subtasks ) {
+     public Task(String id,String name, String description, String status, Date deadline,List<Subtask> subtasks ) {
          super();
+         this.id=id;
          this.name=name;
          this.description=description;
          this.status=status;

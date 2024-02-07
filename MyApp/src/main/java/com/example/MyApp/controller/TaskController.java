@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import org.elasticsearch.*;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -31,7 +31,6 @@ public class TaskController {
 
     @Autowired
     private final ElasticSearchService elasticSearchService;
-
 
 //    @GetMapping("/search")
 //    public ResponseEntity<?> searchWithPagination(
@@ -49,12 +48,6 @@ public class TaskController {
 //            return ResponseEntity.ok(response.getHits().getHits());
 //
 //    }
-
-    @GetMapping("/hello")
-    public String disp(){
-        return "Hiiiiii";
-    }
-
 
 
     @GetMapping("/findAll")

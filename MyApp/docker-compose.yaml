@@ -9,6 +9,8 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
     healthcheck:
       test: ["CMD","curl","-f","http://localhost:9200"]
       interval: 20s
@@ -43,3 +45,5 @@ services:
 networks:
   docker-elk:
     driver: bridge
+volumes:
+  elasticsearch-data:
