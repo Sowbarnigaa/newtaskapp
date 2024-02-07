@@ -21,7 +21,7 @@ jobs:
   integration-unit-test:
     needs: [checkout-code]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && contains(github.event.head_commit.modified, 'MyApp/') }} # Only run if there are changes in MyApp folder
+    if: ${{ github.event_name == 'push' }} # Only run if there are changes in MyApp folder
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 21
