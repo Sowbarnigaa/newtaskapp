@@ -48,19 +48,19 @@ jobs:
           #     java-version: '21'
           #     distribution: 'temurin'
               
-          # - name: Install Elasticsearch
-          #   run: |
-          #     wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.8.1-linux-x86_64.tar.gz
-          #     tar -xzf elasticsearch-8.8.1-linux-x86_64.tar.gz
-          #     ./elasticsearch-8.8.1/bin/elasticsearch &
+          - name: Install Elasticsearch
+            run: |
+              wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.8.1-linux-x86_64.tar.gz
+              tar -xzf elasticsearch-8.8.1-linux-x86_64.tar.gz
+              ./elasticsearch-8.8.1/bin/elasticsearch &
     
-          # - name: Wait for Elasticsearch to start
-          #   run: |
-          #     sleep 30 # Adjust sleep time based on Elasticsearch startup time
-          #     curl -X GET "localhost:9200/_cluster/health?wait_for_status=yellow&timeout=60s"
+          - name: Wait for Elasticsearch to start
+            run: |
+              sleep 30 # Adjust sleep time based on Elasticsearch startup time
+              curl -X GET "localhost:9200/_cluster/health?wait_for_status=yellow&timeout=60s"
     
-          # - name: Run integration tests
-          #   run: mvn test --file ./MyApp/pom.xml
+          - name: Run integration tests
+            run: mvn test --file ./MyApp/pom.xml
             
         # if: needs.paths-filter.outputs.output1 == 'true'
         # services:
