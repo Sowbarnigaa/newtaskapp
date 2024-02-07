@@ -64,7 +64,9 @@ jobs:
             ports:
               - "9200:9200"
               - "9300:9300"
-  
+        steps: 
+           - name: Elastic search Configured
+          
   unit-test:
       runs-on: ubuntu-latest
       needs: [integration-test,setup]
