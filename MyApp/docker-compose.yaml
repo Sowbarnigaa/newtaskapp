@@ -19,7 +19,7 @@ services:
     networks:
       - docker-elk
   backend:
-    image: spring-app                               #sowbarnigaa/backrepo:1
+    image: sowbarnigaa/backrepo:1
     container_name: spring-app-1
     ports:
       - "8080:8080"
@@ -34,7 +34,7 @@ services:
       elasticsearch:
         condition: service_healthy
   angular:
-    image: angular-app                       #sowbarnigaa/frontrepo:1
+    image: sowbarnigaa/frontrepo:1
     container_name: angular-app-1
     ports:
       - "4200:4200"
