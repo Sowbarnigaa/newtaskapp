@@ -127,7 +127,7 @@ jobs:
   build_frontend:
     name: frontend
     runs-on: self-hosted
-    # needs: [build_backend]
+    needs: [build_backend]
     # if: needs.paths-filter.outputs.output1 != 'true'
     steps:
       - name: Check out the repo
@@ -163,6 +163,7 @@ jobs:
         
   deploy:
     runs-on: self-hosted
+    needs: [build_frontend]
     steps:
       - uses: actions/checkout@v4
  
