@@ -163,6 +163,34 @@ jobs:
 
       - name: Set up Docker Compose
         run: docker-compose -f ./MyApp/docker-compose.yaml up -d
+        
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
  
+      - name: Login to  Docker hub
+        uses: docker/login-action@v3
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+ 
+      - name: check images
+        run: docker images
+      - name: build elastic search image
+        run: docker pull docker.elastic.co/elasticsearch/elasticsearch:8.8.1
+ 
+      - name: build springboot image
+        run: docker pull sowbarnigaa/backrepo:latest
+ 
+      - name: build angular image
+        run: docker pull sowbarnigaa/frontrepo:latest
+ 
+ 
+      - name: docker compose
+        run: |
+            cd MyApp
+            docker-compose up
           
   
