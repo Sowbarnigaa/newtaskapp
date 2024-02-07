@@ -61,6 +61,9 @@ jobs:
        mvn -B package --file ./MyApp/pom.xml
        cd MyApp
        mvn --batch-mode --update-snapshots verify
+
+    - name: Run unit tests
+      run: mvn test --file ./MyApp/pom.xml
       
         # - run: mvn -B package --file ./MyApp/pom.xml -DskipTests
         # - run: mkdir staging && cp ./MyApp/target/myapptask.jar staging
