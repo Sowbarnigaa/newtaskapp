@@ -31,13 +31,13 @@ jobs:
  
           
   checkout-code:
-      runs-on: ubuntu-latest
+      runs-on: self-hosted
       steps:
         - uses: actions/checkout@v4
             
   integration-unit-test:
         needs: [checkout-code]
-        runs-on: ubuntu-latest
+        runs-on: self-hosted
         # if: needs.paths-filter.outputs.output1 == 'true'
         services:
           elasticsearch:
@@ -64,7 +64,7 @@ jobs:
              run: mvn test --file ./MyApp/pom.xml
           
   build_backend:
-     runs-on: ubuntu-latest
+     runs-on: self-hosted
      needs: [integration-unit-test]
      steps:
         - uses: actions/checkout@v4
@@ -102,7 +102,7 @@ jobs:
 
   build_frontend:
     name: frontend
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [build_backend]
     # if: needs.paths-filter.outputs.output1 != 'true'
     steps:
