@@ -136,6 +136,9 @@ jobs:
           file: ./taskappfe/Dockerfile
           push: true
           tags: sowbarnigaa/frontrepo:1
-      
+
+      - name: Set up Docker Compose
+        run: docker-compose -f ./MyApp/docker-compose.yaml up -d
+ 
           
   
