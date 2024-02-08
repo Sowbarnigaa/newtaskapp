@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/tasks")
 @CrossOrigin("*")
 @Controller
 public class TaskController {
