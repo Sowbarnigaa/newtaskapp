@@ -39,3 +39,8 @@
    
   </div>
 </div>
+<div class="text-center">
+  <button  class="mx-4" (click)="previousPage()" [disabled]="currentPage === 0">Previous</button>
+
+<button (click)="nextPage()" [disabled]="currentPage === totalPages - 1">Next</button>
+</div>

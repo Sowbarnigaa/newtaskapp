@@ -1,12 +1,17 @@
 package com.example.MyApp.controller;
 
 import co.elastic.clients.elasticsearch.core.SearchResponse;
+
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.example.MyApp.entity.Task;
 import com.example.MyApp.service.ElasticSearchService;
 import com.example.MyApp.service.TaskService;
 import lombok.RequiredArgsConstructor;
+import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,7 +25,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/tasks")
 @CrossOrigin("*")
 @Controller
 public class TaskController {
@@ -30,31 +35,22 @@ public class TaskController {
     private final TaskService  taskService;
 
     @Autowired
-    private final ElasticSearchService elasticSearchService;
+    private ElasticSearchService elasticSearchService;
 
-//    @GetMapping("/search")
-//    public ResponseEntity<?> searchWithPagination(
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "1") int size) {
-//
-//            // Calculate the starting index for pagination
-//            int from = page * size;
-//
-//            // Execute the search query with pagination
-//            org.elasticsearch.action.search.SearchResponse response = taskService.executeSearchAndPaginate(from, size);
-//
-//            // Process the search response and return it
-//            // For simplicity, let's just return the search hits
-//            return ResponseEntity.ok(response.getHits().getHits());
-//
+
+
+//    @GetMapping("/findAll")
+//    public ResponseEntity<Iterable<Task>> findAll(){
+//        Iterable<Task> tasks = taskService.getTasks();
+//        return ResponseEntity.ok().body(tasks);
 //    }
-
-
     @GetMapping("/findAll")
-    public ResponseEntity<Iterable<Task>> findAll(){
-        Iterable<Task> tasks = taskService.getTasks();
+    public ResponseEntity<Page<Task>> findAll(@RequestParam(defaultValue = "0") int page) {
+        PageRequest pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+        Page<Task> tasks = taskService.getTasks(pageable);
         return ResponseEntity.ok().body(tasks);
     }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception ex) {
         // Log the exception

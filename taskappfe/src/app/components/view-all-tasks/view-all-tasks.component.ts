@@ -18,6 +18,9 @@ export class ViewAllTasksComponent {
   showTodo: boolean = false;
   filteredResults: any[] = [];
   filteredData: any[] = [];
+
+  currentPage: number = 0; // Track current page
+  totalPages: number = 0;
 tasks: any;
   constructor(private taskService: TaskService, private router: Router) {
     this.data = [];
@@ -28,15 +31,16 @@ tasks: any;
 
 
   ngOnInit() {
-    this.getAllTasks();
+    this.getAllTasks(this.currentPage);
   }
 
-  getAllTasks() {
-    this.taskService.getAllTask().subscribe((res: any) => {
+  getAllTasks(page:number) {
+    this.taskService.getAllTask(page).subscribe((res: any) => {
       console.log(res);
       console.log(res.content[0]?.name);
       console.log(res.numberOfElements);
-  
+      this.currentPage = res.number; // Update current page
+      this.totalPages = res.totalPages;
       // Clear existing data before adding new data
       this.data = [];
   
@@ -66,12 +70,22 @@ tasks: any;
       }
     });
   }
-  
+  nextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.getAllTasks(this.currentPage + 1);
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 0) {
+      this.getAllTasks(this.currentPage - 1);
+    }
+  }
 
   deleteTask(id: number) {
     this.taskService.deleteTask(id).subscribe((res: any) => {
       console.log(res);
-      this.getAllTasks();
+      this.getAllTasks(this.currentPage);
       if (res.id != null) {
         this.router.navigateByUrl("");
       }

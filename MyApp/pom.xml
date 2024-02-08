@@ -56,6 +56,11 @@
 			<artifactId>spring-boot-docker-compose</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.elasticsearch.client</groupId>
+			<artifactId>elasticsearch-rest-high-level-client</artifactId>
+			<version>7.17.18</version>
+		</dependency>
 
 <!--		<dependency>-->
 <!--			<groupId>io.springfox</groupId>-->

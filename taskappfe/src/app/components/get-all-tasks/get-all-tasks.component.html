@@ -41,7 +41,7 @@
       Show ToDo Tasks
     </label>
   </div>
-</b>
+ </b>
   
 
   <div class="container" *ngIf="searchButtonPressed">
@@ -111,9 +111,15 @@
     </div>
   </div>
 </div>
+
 <div *ngIf="data.length == 0">
   <h5 class="text-danger text-center">---- No tasks found ----</h5>
 </div>
 <div *ngIf="filteredData.length == 0 or filteredResults==0">
   <h5 class="text-danger text-center">---- No results found ----</h5>
+</div>
+<div class="text-center">
+  <button class="mx-4" (click)="previousPage()" [disabled]="currentPage === 0">Previous</button>
+
+<button (click)="nextPage()" [disabled]="currentPage === totalPages - 1">Next</button>
 </div>

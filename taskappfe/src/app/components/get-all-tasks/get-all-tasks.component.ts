@@ -120,6 +120,11 @@ export class GetAllTasksComponent {
   filteredResults: any[] = [];
   filteredData: any[] = [];
   errorOccurred: boolean = false;
+
+  tasks: any[] = [];
+  currentPage: number = 0; // Track current page
+  totalPages: number = 0;
+
   constructor(private taskService: TaskService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.data = [];
     this.searchResults = [];
@@ -128,17 +133,20 @@ export class GetAllTasksComponent {
     this.showInProgress = true;
     this.showTodo = true;
     console.log("cons called");
+    console.log(this.currentPage);
   }
 
   ngOnInit() {
-    this.getAllTasks();
+    this.getAllTasks(this.currentPage);
   }
 
-  getAllTasks() {
-    this.taskService.getAllTask().subscribe((res: any) => {
+  getAllTasks(page: number):void {
+    this.taskService.getAllTask(page).subscribe((res: any) => {
       console.log(res);
       console.log(res.content[0]?.name);
       console.log(res.numberOfElements);
+      this.currentPage = res.number; // Update current page
+      this.totalPages = res.totalPages;
   
       // Clear existing data before adding new data
       this.data = [];
@@ -147,7 +155,7 @@ export class GetAllTasksComponent {
         for (let i = 0; i < res.numberOfElements; i++) {
           const task = res.content[i];
           const subtasks = task.subtasks || []; // Ensure subtasks array is present
-  
+       
           // Map subtasks to a new format if needed
           const formattedSubtasks = subtasks.map((subtask: any) => ({
             name: subtask.name,
@@ -180,12 +188,22 @@ export class GetAllTasksComponent {
     );
    
   }
-  
+  nextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.getAllTasks(this.currentPage + 1);
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 0) {
+      this.getAllTasks(this.currentPage - 1);
+    }
+  }
 
   deleteTask(id: number) {
     this.taskService.deleteTask(id).subscribe((res: any) => {
       console.log(res);
-      this.getAllTasks();
+      this.getAllTasks(this.currentPage);
       if (res.id != null) {
         // Remove the deleted task from the local data array
         this.data = this.data.filter(task => task.id !== id);
