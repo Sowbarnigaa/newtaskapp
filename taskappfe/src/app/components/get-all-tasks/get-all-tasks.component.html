@@ -4,8 +4,8 @@
   <div class="container text-center mt-2">
     <div class="row align-items-center">
       <div class="col-md-3">
-        <button class="btn btn-light py-2 px-3 me-1" routerLink="/insert">Add a new task</button>
-        <button class="btn btn-light py-2 px-3 ms-1" (click)="toggleSort()">Sort by deadline</button>
+        <button class="btn btn-success py-2 px-3 me-1" routerLink="/insert">Add a new task</button>
+        <button class="btn btn-success py-2 px-3 ms-1" (click)="toggleSort()">Sort by deadline</button>
       </div>
       
       <div class="col-md-3">
@@ -16,7 +16,7 @@
         <input class="form-control " type="text" [(ngModel)]="searchTerm" placeholder="Enter search term" style="width: 100%;"/>
       </div>
       <div class="col-md-1">
-        <button class="btn btn-light " (click)="search()">Search</button>
+        <button class="btn btn-danger " (click)="search()">Search</button>
       </div>
     </div>
   </div>
