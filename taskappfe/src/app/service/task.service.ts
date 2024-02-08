@@ -34,5 +34,5 @@ export class TaskService {
   {
     return this.http.get(BASIC_URL+"/tasks/match/"+query)
   }
-
+//
 }
