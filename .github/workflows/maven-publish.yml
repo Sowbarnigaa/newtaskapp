@@ -135,10 +135,10 @@ jobs:
         run: docker pull docker.elastic.co/elasticsearch/elasticsearch:8.8.1
  
       - name: build springboot image
-        run: docker pull sowbarnigaa/backrepo:latest
+        run: docker pull sowbarnigaa/backrepo:1
  
       - name: build angular image
-        run: docker pull sowbarnigaa/frontrepo:latest
+        run: docker pull sowbarnigaa/frontrepo:1
   
       - name: docker compose
         run: docker-compose -f ./MyApp/docker-compose.yaml up -d
