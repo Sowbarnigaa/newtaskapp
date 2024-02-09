@@ -32,7 +32,7 @@ export class TaskService {
   }
   searchTask(query: string): Observable<any> 
   {
-    return this.http.get(BASIC_URL+"/tasks/match/"+query)
+    return this.http.get(BASIC_URL+"/tasks/search/"+query)
   }
 //
 }

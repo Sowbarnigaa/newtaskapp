@@ -7,7 +7,7 @@ import com.example.MyApp.entity.Task;
 import com.example.MyApp.service.ElasticSearchService;
 import com.example.MyApp.service.TaskService;
 import lombok.RequiredArgsConstructor;
-import org.elasticsearch.search.SearchHit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -46,7 +46,7 @@ public class TaskController {
 //    }
     @GetMapping("/findAll")
     public ResponseEntity<Page<Task>> findAll(@RequestParam(defaultValue = "0") int page) {
-        PageRequest pageable = PageRequest.of(page, 2, Sort.by("id").descending());
+        PageRequest pageable = PageRequest.of(page, 3, Sort.by("id").descending());
         Page<Task> tasks = taskService.getTasks(pageable);
         return ResponseEntity.ok().body(tasks);
     }
@@ -57,6 +57,11 @@ public class TaskController {
         ex.printStackTrace();
         // Return an appropriate response to the client
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Task doesn't exist");
+    }
+    @GetMapping("/search/{term}")
+    public ResponseEntity<List<Task>> searchTasks(@PathVariable String term) {
+        List<Task> tasks = taskService.searchTasks(term);
+        return ResponseEntity.ok().body(tasks);
     }
     @GetMapping("/update/{id}")
     public ResponseEntity<Task> find(@PathVariable String id){

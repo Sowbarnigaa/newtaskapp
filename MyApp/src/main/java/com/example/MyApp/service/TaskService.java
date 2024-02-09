@@ -57,6 +57,16 @@ public class TaskService {
         taskRepo.deleteById(id);
     }
 
+    public List<Task> searchTasks(String term) {
+        Iterable<Task> allTasks = taskRepo.findAll();
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : allTasks) {
+            if (task.getDescription().contains(term)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 
 }
 
